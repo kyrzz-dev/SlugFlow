@@ -1,13 +1,24 @@
 import SlugConfig from "./config";
 
-class SlugFlow {
-    public root : SlugConfig
+const cache = new Map<string, SlugFlow>()
 
-    constructor(root : SlugConfig){
+export class SlugFlow {
+    root : SlugConfig;
+
+    private constructor(root : SlugConfig){
         this.root = root;
+    }
+
+    static Create(domain : string, root : SlugConfig) : SlugFlow{
+        if(cache.has(domain)){
+            throw new Error("The specified domain already contains");
+        }
+
+        const flow = new SlugFlow(root);
+        cache.set(domain, flow);
+        
+        return flow;
     }
 }
 
-export function defineFlow(root : SlugConfig) : SlugFlow{
-    return new SlugFlow(root);
-}
+export default SlugFlow;

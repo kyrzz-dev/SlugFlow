@@ -1,23 +1,15 @@
-import { defineFlow } from "./slug/flow";
+import SlugFlow from "./slug/flow";
 
-const myFlow = defineFlow({
+const myFlow = SlugFlow.Create(location.hostname, {
     layout : "basis",
     sub : {
         "about": {
-            
-            meta : {
-                "en" : {
-                    
-                },
-                "tr" : {
 
-                },
-                "de" : {
-
-                }
-            }
         },
         "contact": {
+
+        },
+        "projects": {
 
         }
     }
@@ -28,4 +20,4 @@ function exampleFlow(){
 }
 
 
-export { exampleFlow, defineFlow }
+export { exampleFlow, SlugFlow }
