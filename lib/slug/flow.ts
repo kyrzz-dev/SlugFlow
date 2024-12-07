@@ -10,6 +10,9 @@ export class SlugFlow {
     }
 
     static Create(domain : string, root : SlugConfig) : SlugFlow{
+        if(domain == null || domain.length == 0){
+            throw new Error("Domain cant be null or empty");
+        }
         if(cache.has(domain)){
             throw new Error("The specified domain already contains");
         }
