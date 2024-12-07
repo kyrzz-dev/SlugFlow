@@ -1,6 +1,6 @@
 import SlugConfig from "./config";
 
-export default class SlugFlow {
+class SlugFlow {
     public root : SlugConfig
 
     constructor(root : SlugConfig){

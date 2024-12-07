@@ -1,6 +1,11 @@
-import SlugSub from "./sub";
+import SlugData from "./data";
 
-export default interface SlugConfig {
-    layout? : string;
-    sub? : SlugSub;
+export default interface SlugConfig extends SlugData {
+    memoLast? : boolean;
+    memoDefault? : boolean;
+    sub? : SlugConfigSub;
+}
+
+export type SlugConfigSub = {
+    [name : string] : SlugConfig
 }

@@ -1,17 +1,30 @@
 import { defineFlow } from "./slug/flow";
 
-function exampleFlow(){
-    console.log(defineFlow({
-        layout : "basis",
-        sub : {
-            "about": {
-                layout: "simple"
-            },
-            "contact": {
+const myFlow = defineFlow({
+    layout : "basis",
+    sub : {
+        "about": {
+            
+            meta : {
+                "en" : {
+                    
+                },
+                "tr" : {
 
+                },
+                "de" : {
+
+                }
             }
+        },
+        "contact": {
+
         }
-    }));
+    }
+})
+
+function exampleFlow(){
+    console.log(myFlow);
 }
 
 
