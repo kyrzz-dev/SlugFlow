@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                      // Çıktı olarak ES6 veya daha yüksek bir sürüm belirleyin
+    "module": "ESNext",                    // ES modüllerini kullanın
+    "moduleResolution": "node",            // Node.js modül çözümleme stratejisi
+    "esModuleInterop": true,               // ES modülleri ile uyumlu olmasını sağlar
+    "strict": true,                        // TypeScript'in tüm sıkı denetim kurallarını etkinleştirir
+    "skipLibCheck": true,                  // Kütüphane dosyalarının kontrolünü atla (performans iyileştirmesi)
+    "forceConsistentCasingInFileNames": true,  // Dosya ismi büyük/küçük harf duyarlılığını kontrol et
+    "sourceMap": true,                     // JavaScript dosyalarıyla eşleşen .map dosyalarını üretir (hata ayıklama için kullanışlı)
+    "outDir": "./dist",                    // Çıktı dosyalarının yerini belirler
+    "rootDir": "./lib",
+    "declaration": true,                   // `.d.ts` dosyaları üretir (tip bildirimi)
+    "allowJs": true,                       // JavaScript dosyalarını TypeScript projene dahil et
+    "resolveJsonModule": true              // JSON dosyalarını modül olarak dahil et
+  }
+}

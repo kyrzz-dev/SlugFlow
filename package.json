@@ -1,0 +1,13 @@
+{
+  "name": "slugflow",
+  "version": "0.0.1",
+  "description": "slugging",
+  "main": "index.ts",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
