@@ -1,4 +1,4 @@
-import SlugFlow from "./slug/flow";
+import SlugFlow from "./slugFlow";
 
 const myFlow = SlugFlow.Create(location.hostname, {
     layout : "basis",
