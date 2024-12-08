@@ -6,7 +6,7 @@ export type SlugConfig = SlugData & {
     sub? : SlugConfigSub;
 }
 
-export default SlugConfig;
+export default SlugConfig; 
 
 export type SlugConfigSub = {
     [name : string] : SlugConfig

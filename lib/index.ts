@@ -1,23 +1,5 @@
 import SlugFlow from "./slugFlow";
-
-const myFlow = SlugFlow.Create(location.hostname, {
-    layout : "basis",
-    sub : {
-        "about": {
-
-        },
-        "contact": {
-
-        },
-        "projects": {
-
-        }
-    }
-})
-
-function exampleFlow(){
-    console.log(myFlow);
-}
+import SlugState from "./slugState";
 
 
-export { exampleFlow, SlugFlow }
+export { SlugFlow, SlugState }
