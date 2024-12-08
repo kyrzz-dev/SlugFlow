@@ -38,6 +38,9 @@ export class SlugState {
         return this._source;
     }
 
+    public get children() : ReadonlyArray<SlugState> {
+        return this._children;
+    }
 
     public static Build(root : SlugConfig, name : string = "", depth : number = -1, source : string[] = []) : SlugState {
         const stack: SlugStateBuild[] = [];

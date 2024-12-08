@@ -1,8 +1,8 @@
-import SlugMeta, { SlugMetaDocs } from "./meta";
+import SlugMeta from "./meta";
 
 export type SlugData = {
     layout? : string;
-    meta? : SlugMeta | SlugMetaDocs
+    meta? : SlugMeta | {[lang : string] : SlugMeta}
 }
 
 export default SlugData;

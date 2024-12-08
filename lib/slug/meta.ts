@@ -4,7 +4,3 @@ export type SlugMeta = {
 }
 
 export default SlugMeta;
-
-export type SlugMetaDocs = {
-    [lang : string] : SlugMeta
-}

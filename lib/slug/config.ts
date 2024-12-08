@@ -3,11 +3,7 @@ import SlugData from "./data";
 export type SlugConfig = SlugData & {
     memoLast? : boolean;
     memoDefault? : boolean;
-    sub? : SlugConfigSub;
+    sub? : { [name : string] : SlugConfig} ;
 }
 
 export default SlugConfig; 
-
-export type SlugConfigSub = {
-    [name : string] : SlugConfig
-}
