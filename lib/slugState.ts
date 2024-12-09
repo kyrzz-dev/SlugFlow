@@ -1,7 +1,7 @@
 import SlugFlow from "./slugFlow";
 import SlugConfig from "./slug/config"
 import SlugData, { LocalData } from "./slug/data"
-import { buildData } from "./util/buildData";
+import { fillData } from "./util/data";
 
 export class SlugState {    
     private Name : string;
@@ -41,7 +41,7 @@ export class SlugState {
         const stack: StateBuild[] = [];
         const rootState = new SlugState({
             name, depth, source,
-            data: buildData(null, root)
+            data: fillData(root)
         });
 
         const pushSub = (state : SlugState, config : SlugConfig) => {
@@ -55,7 +55,7 @@ export class SlugState {
                 }
             }
         }
-        
+
         pushSub(rootState, root);
 
         while (stack.length > 0) {
@@ -69,7 +69,7 @@ export class SlugState {
                 name : build.key,
                 depth : build.parent.depth + 1,
                 source : [...build.parent.source, name],
-                data : buildData(build.parent.data, build.config)
+                data : fillData(build.config, build.parent.data)
             });
             build.parent.Children.push(state);
 
