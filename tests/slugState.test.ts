@@ -1,5 +1,6 @@
 import SlugConfig from "../lib/slug/config";
 import SlugState from "../lib/slugState"
+import { buildData } from "../lib/util/buildData";
 
 const config : SlugConfig = {
     layout : "basis",
@@ -17,38 +18,37 @@ const config : SlugConfig = {
 }
 
 describe("Build", () =>{
-    const state = SlugState.Build(config);
-
     describe("root", () =>{
+        const state = SlugState.Build(config);
 
         describe("name", () =>{
-            it("should be empty", () =>{
+            it("should be equal to empty", () =>{
                 expect(state.name).toEqual("");
             }) 
         });
 
-        describe("config", () =>{       
-            it("should match with root config", () =>{
-                expect(state.config).toEqual(config);
-            })
-        });
-
-        describe("data", () =>{
-            it("should be same with root config's data", () =>{
-                expect(state.display).toEqual(config);
-            }) 
-        });
-
         describe("depth", () =>{
-            it("should be -1", () =>{
+            it("should be equal to -1", () =>{
                 expect(state.depth).toEqual(-1);
             }) 
         });
 
         describe("source", () =>{
-            it("should be empty", () =>{
+            it("should be equal to empty", () =>{
                 expect(state.source).toEqual([]);
             }) 
         });
+
+        describe("data", () =>{       
+            it("should be equal to root config", () =>{
+                expect(state.data).toEqual(buildData(null, config));
+            })
+        });
+
+
+        describe("child", () =>{
+
+        });
+
     })
 })

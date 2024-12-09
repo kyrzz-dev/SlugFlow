@@ -1,71 +1,62 @@
 import SlugFlow from "./slugFlow";
 import SlugConfig from "./slug/config"
-import SlugData from "./slug/data"
+import SlugData, { LocalData } from "./slug/data"
+import { buildData } from "./util/buildData";
 
 export class SlugState {    
-    private _name : string;
-    private _config : SlugConfig;
-    private _display : SlugData;
-    private _depth : number;
-    private _source : string[];
-    private _children: SlugState[] = [];
+    private Name : string;
+    private Depth : number;
+    private Source : string[];
+    private Data : SlugData;
+    private Children: SlugState[] = [];
 
-    constructor(props : SlugStateProps){
-        this._name = props.name;
-        this._config = props.config;
-        this._display = props.display ? props.display : props.config;
-        this._depth = props.depth;
-        this._source = props.source;
+    private constructor(props : StateProps){
+        this.Name = props.name;
+        this.Depth = props.depth;
+        this.Source = props.source;
+        this.Data = props.data;
     }
 
     public get name() : Readonly<string> {
-        return this._name;
+        return this.Name;
     }
-
-    public get config() : Readonly<SlugConfig> {
-        return this._config;
-    }
-
-    public get display() : Readonly<SlugData> {
-        return this._display;
-    }
-
+ 
     public get depth() : Readonly<number> {
-        return this._depth;
+        return this.Depth;
     }
 
     public get source() : ReadonlyArray<string> {
-        return this._source;
+        return this.Source;
+    }
+
+    public get data() : Readonly<SlugData> {
+        return this.Data;
     }
 
     public get children() : ReadonlyArray<SlugState> {
-        return this._children;
+        return this.Children;
     }
 
     public static Build(root : SlugConfig, name : string = "", depth : number = -1, source : string[] = []) : SlugState {
-        const stack: SlugStateBuild[] = [];
-        const rootDepth = depth;
+        const stack: StateBuild[] = [];
+        const rootState = new SlugState({
+            name, depth, source,
+            data: buildData(null, root)
+        });
 
-        const pushSub = (state : SlugState) => {
-            if(state.config.sub){
-                for (const [name, child] of Object.entries(state.config.sub).reverse()) {
+        const pushSub = (state : SlugState, config : SlugConfig) => {
+            if(config.sub){
+                for (const [name, child] of Object.entries(config.sub).reverse()) {
                     stack.push({
-                        name: name, 
+                        key: name, 
                         config: child,
                         parent: state,
                     });
                 }
             }
         }
-
-        const rootState = new SlugState({
-            config : root,
-            name,     
-            depth,
-            source
-        });
-
-        pushSub(rootState);
+        
+        pushSub(rootState, root);
 
         while (stack.length > 0) {
             const build = stack.pop();
@@ -75,34 +66,31 @@ export class SlugState {
             }
 
             const state = new SlugState({
-                name : build.name,
-                config : build.config,
-                display : { ...build.parent.config, ...build.config},
+                name : build.key,
                 depth : build.parent.depth + 1,
-                source : [...build.parent.source, name]
+                source : [...build.parent.source, name],
+                data : buildData(build.parent.data, build.config)
             });
-            build.parent?._children.push(state);
+            build.parent.Children.push(state);
 
-            pushSub(state);
+            pushSub(state, build.config);
         }
 
         return rootState;
     }
 }
 
-export type SlugStateSource = {
-    name : string;
-    config : SlugConfig;
-}
+export default SlugState;
 
-export type SlugStateBuild = SlugStateSource & {
+export type StateBuild = {
+    key : string;
+    config : SlugConfig;
     parent : SlugState;
 }
 
-export type SlugStateProps = SlugStateSource & {
-    display? : SlugData;
+export type StateProps = {
+    name : string;
     depth : number;
     source : string[];
+    data : SlugData;
 }
-
-export default SlugState;
