@@ -15,13 +15,13 @@ class StateData extends StateBase {
         this.#matched = configToData(source.getConfig());
 
         const parent = source.parent;
-        this.#current = fillData(this.#matched, parent?.data.cloneCurrent());
+        this.#current = fillData(this.#matched, parent?.data.getCurrent());
     }
 
-    public cloneCurrent(){
+    public getCurrent(){
         return cloneDeep(this.#current);
     }
-    public cloneMatched(){
+    public getMatched(){
         return cloneDeep(this.#matched);
     }
 }

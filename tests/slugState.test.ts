@@ -29,6 +29,6 @@ describe("Basic Construction", () =>{
         expect(hierarchy.getSource()).toEqual([]);
 
         const data = state.data;
-        expect(data.cloneCurrent()).toEqual(fillData(root));
+        expect(data.getCurrent()).toEqual(fillData(root));
     })
 })
