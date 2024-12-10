@@ -8,8 +8,8 @@ class SlugFlow {
     #state : SlugState;
 
     private constructor(root : SlugConfig){
-        this.#root = freezeClone(root);
-        this.#state = SlugState.buildRoot(this.#root);
+        this.#state = SlugState.buildRoot(root, this);        
+        this.#root = this.#state.config;
     }
 
     public get root() : SlugConfig {
