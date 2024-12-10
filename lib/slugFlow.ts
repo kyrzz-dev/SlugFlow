@@ -1,26 +1,27 @@
 import SlugConfig from "./slug/config";
 import SlugState from "./slugState";
+import freezeClone from "./util/freezeClone";
 
 export class SlugFlow {
     private static cache = new Map<string, SlugFlow>();
-    private _root : SlugState;
+    #config : SlugConfig;
+    #root : SlugState;
 
 
-    private constructor(root : SlugState){
-        this._root = root;
+    private constructor(config : SlugConfig){
+        this.#config = freezeClone(config);
+        this.#root = SlugState.Build(this.#config);
     }
 
-    public get root() : SlugState{
-        return this._root;
+    public get config() : SlugConfig {
+        return this.config;
     }
 
-    static Create(root : SlugConfig) : SlugFlow{
-        const state = SlugState.Build(root);
-
-        return new SlugFlow(state);
+    public get root() : SlugState {
+        return this.#root;
     }
 
-    static Define(domain : string, flow : SlugFlow) : void {
+    static Create(domain : string, config : SlugConfig) : SlugFlow {
         if(domain == null || domain.length == 0){
             throw new Error("The specified cant be null or empty");
         }
@@ -29,7 +30,10 @@ export class SlugFlow {
             throw new Error("The specified domain already exists");
         }
 
+        const flow = new SlugFlow(config);
         SlugFlow.cache.set(domain, flow);
+
+        return flow;
     }
 
 
