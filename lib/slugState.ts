@@ -1,54 +1,43 @@
-import SlugFlow from "./slugFlow";
 import SlugConfig from "./slug/config"
-import SlugData, { LocalData } from "./slug/data"
+import StateSource from "./state/source";
+import StateHierarchy from "./state/hierarchy";
+import StateData from "./state/data";
 import { fillData } from "./util/data";
+import StateProps from "./state/props";
 
-export class SlugState {    
-    private Name : string;
-    private Depth : number;
-    private Source : string[];
-    private Data : SlugData;
-    private Children: SlugState[] = [];
+export class SlugState {  
+    #source : StateSource;
+    #hierarchy : StateHierarchy;
+    #data : StateData;
 
     private constructor(props : StateProps){
-        this.Name = props.name;
-        this.Depth = props.depth;
-        this.Source = props.source;
-        this.Data = props.data;
+        this.#source = new StateSource(this, props);
+        this.#hierarchy = new StateHierarchy(this);
+        this.#data = new StateData(this);
     }
 
-    public get name() : Readonly<string> {
-        return this.Name;
+    
+    public get source() : StateSource {
+        return this.#source;
     }
  
-    public get depth() : Readonly<number> {
-        return this.Depth;
+    public get hierarchy() : StateHierarchy {
+        return this.#hierarchy;
     }
 
-    public get source() : ReadonlyArray<string> {
-        return this.Source;
+    public get data() : StateData {
+        return this.#data;
     }
 
-    public get data() : Readonly<SlugData> {
-        return this.Data;
-    }
-
-    public get children() : ReadonlyArray<SlugState> {
-        return this.Children;
-    }
-
-    public static Build(root : SlugConfig, name : string = "", depth : number = -1, source : string[] = []) : SlugState {
-        const stack: StateBuild[] = [];
-        const rootState = new SlugState({
-            name, depth, source,
-            data: fillData(root)
-        });
+    public static Build(root : SlugConfig) : SlugState {
+        const stack: StateProps[] = [];
+        const rootState = new SlugState({name: "", config: root});
 
         const pushSub = (state : SlugState, config : SlugConfig) => {
             if(config.sub){
                 for (const [name, child] of Object.entries(config.sub).reverse()) {
                     stack.push({
-                        key: name, 
+                        name: name, 
                         config: child,
                         parent: state,
                     });
@@ -59,21 +48,16 @@ export class SlugState {
         pushSub(rootState, root);
 
         while (stack.length > 0) {
-            const build = stack.pop();
+            const props = stack.pop();
 
-            if(!build){
+            if(!props){
                 break;
             }
 
-            const state = new SlugState({
-                name : build.key,
-                depth : build.parent.depth + 1,
-                source : [...build.parent.source, name],
-                data : fillData(build.config, build.parent.data)
-            });
-            build.parent.Children.push(state);
+            const state = new SlugState(props);
+            //props.parent?.hierarchy.Children.push(state);
 
-            pushSub(state, build.config);
+            //pushSub(state, build.config);
         }
 
         return rootState;
@@ -81,16 +65,3 @@ export class SlugState {
 }
 
 export default SlugState;
-
-export type StateBuild = {
-    key : string;
-    config : SlugConfig;
-    parent : SlugState;
-}
-
-export type StateProps = {
-    name : string;
-    depth : number;
-    source : string[];
-    data : SlugData;
-}

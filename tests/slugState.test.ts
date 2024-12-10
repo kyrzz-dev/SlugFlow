@@ -21,9 +21,14 @@ describe("Basic Construction", () =>{
     const state = SlugState.Build(root);
 
     it("should be at default root values", () =>{
-        expect(state.name).toEqual("");
-        expect(state.depth).toEqual(-1);
-        expect(state.source).toEqual([]);
-        expect(state.data).toEqual(fillData(root));
+        const source = state.source;
+        expect(source.name).toEqual("");
+
+        const hierarchy = state.hierarchy;
+        expect(hierarchy.depth).toEqual(-1);
+        expect(hierarchy.cloneSource()).toEqual([]);
+
+        const data = state.data;
+        expect(data.cloneCurrent()).toEqual(fillData(root));
     })
 })

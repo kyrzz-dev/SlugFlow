@@ -1,4 +1,10 @@
+import { omit } from "lodash";
+import SlugConfig from "../slug/config";
 import SlugData, { SharedData, LocalData } from "../slug/data";
+
+function configToData(config : SlugConfig){
+    return omit(config, 'sub');
+}
 
 function fillShared(target: SharedData, source?: SharedData) : SharedData {
     if(source) {
@@ -34,4 +40,5 @@ function fillData(target: SlugData, source? : SlugData): SlugData {
     }
 }
 
-export { fillShared, fillLocal, fillData }
+
+export { configToData, fillShared, fillLocal, fillData }

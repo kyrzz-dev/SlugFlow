@@ -13,5 +13,5 @@
     "declaration": true,                   // `.d.ts` dosyaları üretir (tip bildirimi)
     "allowJs": true,                       // JavaScript dosyalarını TypeScript projene dahil et
     "resolveJsonModule": true              // JSON dosyalarını modül olarak dahil et
-  }, "include": ["lib/**/*"]
+  }, "include": ["lib/**/*", "node.js"]
 }
