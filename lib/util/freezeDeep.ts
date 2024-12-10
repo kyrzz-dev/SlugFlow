@@ -1,7 +1,7 @@
-function deepFreeze(obj: any): any {
+function freezeDeep(obj: any){
     // Nesne türünde olmayan veriler için bir işlem yapmıyoruz
     if (obj === null || typeof obj !== 'object') {
-        return obj;
+        return;
     }
 
     // Nesnenin özelliklerini dondur
@@ -9,10 +9,8 @@ function deepFreeze(obj: any): any {
 
     // Nesnenin her özelliğini kontrol et ve eğer nesne ise, recursive olarak dondur
     Object.getOwnPropertyNames(obj).forEach((prop) => {
-        deepFreeze(obj[prop]);
+        freezeDeep(obj[prop]);
     });
-
-    return obj;
 }
 
-export default deepFreeze;
+export default freezeDeep;
