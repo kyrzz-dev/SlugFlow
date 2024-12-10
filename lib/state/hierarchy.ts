@@ -26,13 +26,17 @@ class StateHierarchy extends StateBase {
         return this.#depth;
     }
 
-    public cloneSource() : SlugState[]{
+    public getSource() : SlugState[]{
         return [...this.#source];
     }
 
-    public cloneContent(){
+    public getContent() {
         if(this.#content){
             return [...this.#content];
+        }
+        else{
+            //const config = this.target.source.;
+            // burada childleri build edicez
         }
     }
 }

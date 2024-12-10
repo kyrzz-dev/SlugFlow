@@ -12,7 +12,7 @@ class StateData extends StateBase {
         super(target);
 
         const source = target.source;
-        this.#matched = configToData(source.cloneConfig());
+        this.#matched = configToData(source.getConfig());
 
         const parent = source.parent;
         this.#current = fillData(this.#matched, parent?.data.cloneCurrent());

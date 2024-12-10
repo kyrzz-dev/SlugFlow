@@ -32,7 +32,7 @@ export class SlugFlow {
         SlugFlow.cache.set(domain, flow);
     }
 
-    
+
     static Clear() {
         SlugFlow.cache.clear();
     }

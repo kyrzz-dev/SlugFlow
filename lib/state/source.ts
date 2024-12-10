@@ -1,8 +1,7 @@
 import { cloneDeep } from "lodash";
 import SlugConfig from "../slug/config";
-import SlugState from "../slugState";
+import SlugState, { StateProps } from "../slugState";
 import StateBase from "./base";
-import StateProps from "./props";
 
 
 class StateSource extends StateBase{
@@ -17,15 +16,15 @@ class StateSource extends StateBase{
         this.#parent = props.parent;
     }
 
-    public get name() : string{
+    public get name() : string {
         return this.#name;
     }
 
-    public cloneConfig() : SlugConfig{
+    public getConfig() : SlugConfig {
         return cloneDeep(this.#config);
     }
 
-    public get parent() : SlugState | undefined{
+    public get parent() : SlugState | undefined {
         return this.#parent;
     }
 }

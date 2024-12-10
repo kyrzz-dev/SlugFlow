@@ -2,8 +2,6 @@ import SlugConfig from "./slug/config"
 import StateSource from "./state/source";
 import StateHierarchy from "./state/hierarchy";
 import StateData from "./state/data";
-import { fillData } from "./util/data";
-import StateProps from "./state/props";
 
 export class SlugState {  
     #source : StateSource;
@@ -65,3 +63,9 @@ export class SlugState {
 }
 
 export default SlugState;
+
+export type StateProps = {
+    name : string;
+    config : SlugConfig;
+    parent? : SlugState;
+}

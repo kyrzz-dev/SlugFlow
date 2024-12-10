@@ -7,7 +7,7 @@ abstract class StateBase {
         this.#target = target;
     }
 
-    public get target(){
+    protected get target(){
         return this.#target;
     }
 }
