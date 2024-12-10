@@ -9,35 +9,37 @@ class StateHierarchy extends StateBase {
     public constructor(target : SlugState){
         super(target);
 
-        const source = target.source;
-        if(source.parent){
-            const hierarchy = source.parent.hierarchy;
+        const parent = target.parent;
+        if(parent){
+            const hierarchy = parent.hierarchy;
 
             this.#depth = hierarchy.depth + 1;
-            this.#source = [...hierarchy.#source, source.parent];
+            this.#source = [...hierarchy.#source, parent];
         }
         else{
             this.#depth = -1;
             this.#source = [];
         }
+
+        Object.freeze(this.#depth);
+        Object.freeze(this.#source);
     }
 
     public get depth() : number{
         return this.#depth;
     }
 
-    public getSource() : SlugState[]{
-        return [...this.#source];
+    public get source() : SlugState[]{
+        return this.#source;
     }
 
-    public getContent() {
-        if(this.#content){
-            return [...this.#content];
+    public get content() {
+        if(!this.#content){
+            this.#content = SlugState.buildContent(super.target);
+            Object.freeze(this.#content);
         }
-        else{
-            //const config = this.target.source.;
-            // burada childleri build edicez
-        }
+        
+        return this.#content;
     }
 }
 

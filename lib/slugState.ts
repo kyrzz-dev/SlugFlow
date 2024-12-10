@@ -1,24 +1,37 @@
 import SlugConfig from "./slug/config"
-import StateSource from "./state/source";
 import StateHierarchy from "./state/hierarchy";
 import StateData from "./state/data";
 
 export class SlugState {  
-    #source : StateSource;
+    #name : string;
+    #config : SlugConfig;
+    #parent? : SlugState;
+
     #hierarchy : StateHierarchy;
     #data : StateData;
 
-    private constructor(props : StateProps){
-        this.#source = new StateSource(this, props);
+    private constructor(name : string, config : SlugConfig, parent? : SlugState){
+        this.#name = name;
+        this.#config = config;
+        this.#parent = parent;
+
         this.#hierarchy = new StateHierarchy(this);
         this.#data = new StateData(this);
     }
 
-    
-    public get source() : StateSource {
-        return this.#source;
+    public get name() : string {
+        return this.#name;
+    }
+
+    public get config() : SlugConfig {
+        return this.#config;
+    }
+
+    public get parent() : SlugState | undefined {
+        return this.#parent;
     }
  
+
     public get hierarchy() : StateHierarchy {
         return this.#hierarchy;
     }
@@ -27,45 +40,22 @@ export class SlugState {
         return this.#data;
     }
 
-    public static Build(root : SlugConfig) : SlugState {
-        const stack: StateProps[] = [];
-        const rootState = new SlugState({name: "", config: root});
+    static buildRoot(config : SlugConfig) : SlugState {
+        return new SlugState("", config);
+    }
+    
+    static buildContent(state : SlugState) : SlugState[] {
+        const config = state.config;
+        const content : SlugState[] = [];
 
-        const pushSub = (state : SlugState, config : SlugConfig) => {
-            if(config.sub){
-                for (const [name, child] of Object.entries(config.sub).reverse()) {
-                    stack.push({
-                        name: name, 
-                        config: child,
-                        parent: state,
-                    });
-                }
+        if(config.sub){
+            for (const [name, child] of Object.entries(config.sub).reverse()) {
+                content.push(new SlugState(name, child, state));
             }
         }
 
-        pushSub(rootState, root);
-
-        while (stack.length > 0) {
-            const props = stack.pop();
-
-            if(!props){
-                break;
-            }
-
-            const state = new SlugState(props);
-            //props.parent?.hierarchy.Children.push(state);
-
-            //pushSub(state, build.config);
-        }
-
-        return rootState;
+        return content;
     }
 }
 
 export default SlugState;
-
-export type StateProps = {
-    name : string;
-    config : SlugConfig;
-    parent? : SlugState;
-}

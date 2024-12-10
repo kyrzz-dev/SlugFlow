@@ -11,10 +11,9 @@ class StateData extends StateBase {
     public constructor(target : SlugState){
         super(target);
 
-        const source = target.source;
-        this.#matched = configToData(source.getConfig());
+        this.#matched = configToData(target.config);
 
-        const parent = source.parent;
+        const parent = target.parent;
         this.#current = fillData(this.#matched, parent?.data.getCurrent());
     }
 

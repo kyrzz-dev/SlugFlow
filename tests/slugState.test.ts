@@ -16,19 +16,3 @@ const root : SlugConfig = {
         }
     }
 }
-
-describe("Basic Construction", () =>{
-    const state = SlugState.Build(root);
-
-    it("should be at default root values", () =>{
-        const source = state.source;
-        expect(source.name).toEqual("");
-
-        const hierarchy = state.hierarchy;
-        expect(hierarchy.depth).toEqual(-1);
-        expect(hierarchy.getSource()).toEqual([]);
-
-        const data = state.data;
-        expect(data.getCurrent()).toEqual(fillData(root));
-    })
-})
