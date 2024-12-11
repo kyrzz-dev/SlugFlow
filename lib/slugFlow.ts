@@ -1,6 +1,5 @@
 import SlugConfig from "./slug/config";
 import SlugState from "./slugState";
-import freezeClone from "./util/freezeClone";
 
 class SlugFlow {
     static cache = new Map<string, SlugFlow>();

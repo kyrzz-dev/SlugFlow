@@ -56,6 +56,10 @@ export class SlugState {
     }
 
     static buildRoot(config : SlugConfig, flow : SlugFlow) : SlugState {
+        if(flow.root) {
+            throw new Error("Root build cannot be called manually");
+        }
+
         return new SlugState("", freezeClone(config), flow);
     }
     

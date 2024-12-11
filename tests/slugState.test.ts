@@ -17,10 +17,15 @@ const root : SlugConfig = {
     }
 }
 
-describe("Build Root", () =>{
+describe("Root building", () =>{
     const config : SlugConfig = { layout: "build-root", access: "state" }
     const flow = SlugFlow.defineFlow("build-root.com", config);
-    const state = SlugState.buildRoot(config, flow);
+
+    it("should not be called manually", () =>{
+        expect(() => SlugState.buildRoot(config, flow)).toThrow();
+    })
+
+    const state = flow.state;
 
     it("should have equal values", () =>{
         expect(state.config).toEqual(config);
