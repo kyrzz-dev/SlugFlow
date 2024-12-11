@@ -33,13 +33,26 @@ class StateHierarchy extends StateBase {
         return this.#source;
     }
 
-    public get content() {
-        if(!this.#content){
-            this.#content = SlugState.buildContent(super.target);
+    public get content() : SlugState[] {
+        if(this.#content){
+            return this.#content;
+        }
+
+        const empty : SlugState[] = [];
+        Object.freeze(empty);
+
+        return empty;
+    }
+
+    public getContent(){
+        if(!this.content){
+            this.#content = [];
+
+            SlugState.buildContent(super.target);
             Object.freeze(this.#content);
         }
         
-        return this.#content;
+        return this.content;
     }
 }
 

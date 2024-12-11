@@ -63,17 +63,21 @@ export class SlugState {
         return new SlugState("", freezeClone(config), flow);
     }
     
-    static buildContent(state : SlugState) : SlugState[] {
+    static buildContent(state : SlugState) : void {
+        const hierarchy = state.hierarchy;
+        const content : SlugState[] = hierarchy.content;
+
+        if(Object.isFrozen(content)) {
+            throw new Error("Content build cannot be called manually");
+        }
+
         const config = state.config;
-        const content : SlugState[] = [];
 
         if(config.sub){
             for (const [name, child] of Object.entries(config.sub).reverse()) {
                 content.push(new SlugState(name, child, state));
             }
         }
-
-        return content;
     }
 }
 
