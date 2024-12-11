@@ -45,7 +45,7 @@ class StateHierarchy extends StateBase {
     }
 
     public getContent(){
-        if(!this.content){
+        if(!this.#content) {
             this.#content = [];
 
             SlugState.buildContent(super.target);
