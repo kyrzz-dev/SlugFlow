@@ -1,12 +1,6 @@
-import { omit } from "lodash";
-import SlugConfig from "../slug/config";
 import SlugData, { SharedData, LocalData } from "../slug/data";
 
-function configToData(config : SlugConfig){
-    return omit(config, 'sub');
-}
-
-function fillShared(target: SharedData, source?: SharedData) : SharedData {
+function sharedClone(target: SharedData, source?: SharedData) : SharedData {
     if(source) {
         return {
             layout: source.layout ? source.layout : target.layout,
@@ -23,22 +17,20 @@ function fillShared(target: SharedData, source?: SharedData) : SharedData {
     }
 }
 
-function fillLocal(target: LocalData) : LocalData {
+function localClone(target: LocalData) : LocalData {
     return {
         memoLast: target.memoLast,
         memoDefault : target.memoDefault,
     }
 }
 
-function fillData(target: SlugData, source? : SlugData): SlugData {
-    const sharedData = fillShared(target, source);
-    const localData = fillLocal(target);
-
+function dataClone(target : SlugData, source? : SlugData) : SlugData {
     return {
-        ...sharedData,
-        ...localData
+        ...sharedClone(target, source),
+        ...localClone(target)
     }
 }
 
 
-export { configToData, fillShared, fillLocal, fillData }
+
+export { dataClone, sharedClone, localClone }
