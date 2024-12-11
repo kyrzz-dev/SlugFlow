@@ -2,30 +2,29 @@ import SlugConfig from "../lib/slug/config";
 import SlugFlow from "../lib/slugFlow";
 import SlugState from "../lib/slugState"
 
-const root : SlugConfig = {
+const config : SlugConfig = {
     layout : "basis",
     sub: {
-        "1" : {
+        "child1" : {
 
         },
-        "2" : {
+        "child2" : {
             layout : "sidebar"
         },
-        "3" : {
+        "child3" : {
             
         }
     }
 }
 
-describe("Root building", () =>{
-    const config : SlugConfig = { layout: "build-root", access: "state" }
-    const flow = SlugFlow.defineFlow("build-root.com", config);
+const flow = SlugFlow.defineFlow("build-root.com", config);
 
+const state = flow.state;
+
+describe("Root build", () =>{
     it("should not be called manually", () =>{
         expect(() => SlugState.buildRoot(config, flow)).toThrow();
     })
-
-    const state = flow.state;
 
     it("should have equal values", () =>{
         expect(state.config).toEqual(config);
@@ -37,3 +36,21 @@ describe("Root building", () =>{
         expect(state.flow).toBe(flow);
     })
 })
+
+describe("Content build", () =>{
+    it("should not be called manually", () =>{        
+        expect(() => SlugState.buildContent(state)).toThrow(); 
+    })
+
+    const hierarchy = state.hierarchy;
+    it("should be empty if not builded yet", () =>{  
+        const content = hierarchy.content;
+        expect(content).toEqual([]);
+    })
+
+    it("should build it with getContent", () =>{
+        const content = hierarchy.getContent();
+        expect(()=> expect(content).toEqual([])).toThrow();
+    })
+})
+
