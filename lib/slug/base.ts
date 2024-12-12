@@ -5,7 +5,7 @@ import { toRest, toSlugs } from "../util/slugFormat";
 abstract class SlugBase {
     protected abstract target() : SlugState;
 
-    public getState(src : SlugSource) : SlugState | null {
+    public slug(src : SlugSource) : SlugState | null {
         const slugs = toSlugs(src);
     
         if(slugs[0] == ':') {
@@ -24,7 +24,7 @@ abstract class SlugBase {
                     return child;
                 }
 
-                return child.getState(toRest(slugs));
+                return child.slug(toRest(slugs));
             }
         }
 
