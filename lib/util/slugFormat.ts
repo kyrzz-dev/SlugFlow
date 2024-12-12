@@ -44,6 +44,16 @@ function toRest(src : string | string[], i : number = 1) : string[] {
     return toSlugs(src).slice(i);
 }
 
+function toSource(path : string) : string[];
+function toSource(path : string, i : number) : string[];
+function toSource(slugs : string[]) : string[];
+function toSource(slugs : string[], i : number) : string[];
+function toSource(src : string | string[]) : string[];
+function toSource(src : string | string[], i : number) : string[];
+function toSource(src : string | string[], i : number = -1) : string[] {
+    return toSlugs(src).slice(0, i);
+}
+
 export { 
-    toSlugs, toPath, toRest
+    toSlugs, toPath, toRest, toSource
 }
