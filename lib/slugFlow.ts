@@ -4,32 +4,32 @@ import SlugState from "./slugState";
 
 class SlugFlow extends SlugBase {
     static cache = new Map<string, SlugFlow>();
-    #root : SlugConfig;
-    #state : SlugState;
+    #config : SlugConfig;
+    #root : SlugState;
 
-    private constructor(root : SlugConfig){
+    private constructor(config : SlugConfig){
         super();
-        this.#state = SlugState.buildRoot(root, this);        
-        this.#root = this.#state.config;
+        this.#root = SlugState.buildRoot(config, this);        
+        this.#config = this.#root.config;
     }
 
-    public get root() : SlugConfig {
+    public get config() : SlugConfig {
+        return this.#config;
+    }
+
+    public get root() : SlugState {
         return this.#root;
     }
 
-    public get state() : SlugState {
-        return this.#state;
-    }
-
     protected target() : SlugState {
-        return this.state;
+        return this.root;
     }
 
     static Clear() {
         SlugFlow.cache.clear();
     }
 
-    static defineFlow(domain : string, root : SlugConfig) : SlugFlow {
+    static defineFlow(domain : string, config : SlugConfig) : SlugFlow {
         if(domain == null || domain.length == 0){
             throw new Error("The specified cant be null or empty");
         }
@@ -38,7 +38,7 @@ class SlugFlow extends SlugBase {
             throw new Error("The specified domain already exists");
         }
     
-        const flow = new SlugFlow(root);
+        const flow = new SlugFlow(config);
         SlugFlow.cache.set(domain, flow);
     
         return flow;
