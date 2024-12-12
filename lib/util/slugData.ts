@@ -3,9 +3,9 @@ import SlugData, { SharedData, LocalData } from "../slug/data";
 function sharedClone(target: SharedData, source?: SharedData) : SharedData {
     if(source) {
         return {
-            layout: source.layout ? source.layout : target.layout,
-            access: source.access ? source.access : target.access,
-            meta: source.meta ? source.meta : target.meta,
+            layout: target.layout ? target.layout : source.layout,
+            access: target.access ? target.access : source.access,
+            meta: target.meta ? target.meta : source.meta,
         };
     }
     else{
