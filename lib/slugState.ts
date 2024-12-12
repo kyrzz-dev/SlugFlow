@@ -60,7 +60,7 @@ export class SlugState {
             throw new Error("Root build cannot be called manually");
         }
 
-        return new SlugState("", freezeClone(config), flow);
+        return new SlugState(":", freezeClone(config), flow);
     }
     
     static buildContent(state : SlugState) : void {
