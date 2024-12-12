@@ -34,6 +34,16 @@ function toPath(src : string | string[], s: string = '/') : string {
     return src.join(s);
 }
 
+function toRest(path : string) : string[];
+function toRest(path : string, i : number) : string[];
+function toRest(slugs : string[]) : string[];
+function toRest(slugs : string[], i : number) : string[];
+function toRest(src : string | string[]) : string[];
+function toRest(src : string | string[], i : number) : string[];
+function toRest(src : string | string[], i : number = 1) : string[] {
+    return toSlugs(src).slice(i);
+}
+
 export { 
-    toSlugs, toPath 
+    toSlugs, toPath, toRest
 }
