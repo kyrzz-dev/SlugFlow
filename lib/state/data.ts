@@ -12,7 +12,7 @@ class StateData extends StateContent {
         super(target);
         const parent = target.parent;
 
-        this.#shared = sharedClone(target.config, parent?.config);
+        this.#shared = sharedClone(target.config, parent?.data.shared);
         this.#local = localClone(target.config);
         this.#matched = dataClone(target.config);
     }
