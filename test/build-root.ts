@@ -6,18 +6,18 @@ const flow = SlugFlow.defineFlow("build-root.com", dummy);
 
 const state = flow.root;
 
-describe("Root build", () =>{
-    it("should not be called manually", () =>{
-        expect(() => SlugState.buildRoot(dummy, flow)).toThrow();
-    })
+test("should not be called manually", () =>{
+    expect(() => SlugState.buildRoot(dummy, flow)).toThrow();
+})
 
-    it("should have equal values", () =>{
-        expect(state.config).toEqual(dummy);
-        expect(state.flow).toEqual(flow);
+test("should have equal values", () =>{
+    expect(state.config).toEqual(dummy);
+    expect(state.flow).toEqual(flow);
 
-    })
-    it("should have same or different references", () =>{
-        expect(() => expect(state.config).toBe(dummy)).toThrow();
-        expect(state.flow).toBe(flow);
-    })
+})
+
+test("should have same or different references", () =>{
+    expect(state.config).not.toBe(dummy);
+    expect(state.flow).toBe(flow);
+
 })
