@@ -1,6 +1,6 @@
 import SlugState from "../slugState";
 
-abstract class StateBase {
+abstract class StateContent {
     #target : SlugState;
 
     protected constructor(target : SlugState){
@@ -12,4 +12,4 @@ abstract class StateBase {
     }
 }
 
-export default StateBase;
+export default StateContent;

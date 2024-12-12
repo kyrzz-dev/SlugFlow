@@ -1,7 +1,7 @@
 import SlugFlow from "./slugFlow";
 import SlugBase from "./slug/base";
 import SlugConfig from "./slug/config"
-import StateHierarchy from "./state/hierarchy";
+import StateNav from "./state/nav";
 import StateData from "./state/data";
 import freezeClone from "./util/freezeClone";
 import { toSlugs } from "./util/slugFormat";
@@ -12,7 +12,7 @@ export class SlugState extends SlugBase{
     #flow : SlugFlow;
     #parent? : SlugState;
 
-    #hierarchy : StateHierarchy;
+    #nav : StateNav;
     #data : StateData;
 
     private constructor(name : string, config : SlugConfig, top : SlugFlow | SlugState){
@@ -30,7 +30,7 @@ export class SlugState extends SlugBase{
             this.#parent = undefined;
         }
 
-        this.#hierarchy = new StateHierarchy(this);
+        this.#nav = new StateNav(this);
         this.#data = new StateData(this);
     }
 
@@ -51,8 +51,8 @@ export class SlugState extends SlugBase{
     }
  
 
-    public get hierarchy() : StateHierarchy {
-        return this.#hierarchy;
+    public get nav() : StateNav {
+        return this.#nav;
     }
 
     public get data() : StateData {
@@ -72,8 +72,8 @@ export class SlugState extends SlugBase{
     }
     
     static buildContent(state : SlugState) : void {
-        const hierarchy = state.hierarchy;
-        const content : SlugState[] = hierarchy.content;
+        const nav = state.nav;
+        const content : SlugState[] = nav.content;
 
         if(Object.isFrozen(content)) {
             throw new Error("Content build cannot be called manually");

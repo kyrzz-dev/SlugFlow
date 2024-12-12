@@ -1,9 +1,9 @@
-import StateBase from "./base";
+import StateContent from "./content";
 import SlugState from "../slugState";
 import SlugData, { SharedData, LocalData } from "../slug/data";
 import { sharedClone, localClone, dataClone } from "../util/slugData";
 
-class StateData extends StateBase {
+class StateData extends StateContent {
     #shared : SharedData;
     #local : LocalData;
     #matched : SlugData;

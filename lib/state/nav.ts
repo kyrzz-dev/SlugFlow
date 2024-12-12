@@ -1,7 +1,7 @@
 import SlugState from "../slugState";
-import StateBase from "./base";
+import StateContent from "./content";
 
-class StateHierarchy extends StateBase {
+class StateNav extends StateContent {
     #depth : number;
     #source : SlugState[];
     #content? : SlugState[];
@@ -11,10 +11,10 @@ class StateHierarchy extends StateBase {
 
         const parent = target.parent;
         if(parent){
-            const hierarchy = parent.hierarchy;
+            const nav = parent.nav;
 
-            this.#depth = hierarchy.depth + 1;
-            this.#source = [...hierarchy.#source, parent];
+            this.#depth = nav.depth + 1;
+            this.#source = [...nav.source, parent];
         }
         else{
             this.#depth = -1;
@@ -56,4 +56,4 @@ class StateHierarchy extends StateBase {
     }
 }
 
-export default StateHierarchy;
+export default StateNav;

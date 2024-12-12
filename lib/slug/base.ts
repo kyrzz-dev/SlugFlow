@@ -13,7 +13,7 @@ abstract class SlugBase {
         }
     
         const target = this.target();
-        const hierarchy = target.hierarchy;
+        const hierarchy = target.nav;
         const content = hierarchy.getContent();
         const isLast = slugs.length == 1;
     
