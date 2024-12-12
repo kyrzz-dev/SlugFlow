@@ -1,7 +1,11 @@
+import SlugSource from "./source";
 import SlugState from "../slugState";
+import { toSlugs } from "../util/slugFormat";
 
 abstract class SlugBase {
-    public abstract getContent() : SlugState[];
+
+    protected abstract target() : SlugState;
+
 }
 
 export default SlugBase;

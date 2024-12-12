@@ -21,9 +21,9 @@ class SlugFlow extends SlugBase {
         return this.#state;
     }
 
-    public getContent(): SlugState[] {
-        return this.state.getContent();
-    }  
+    protected target() : SlugState {
+        return this.state;
+    }
 
     static Clear() {
         SlugFlow.cache.clear();

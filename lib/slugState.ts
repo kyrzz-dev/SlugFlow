@@ -59,9 +59,9 @@ export class SlugState extends SlugBase{
         return this.#data;
     }
 
-    public getContent(): SlugState[] {
-        return this.hierarchy.getContent();
-    }  
+    protected target() : SlugState {
+        return this;
+    }
 
     static buildRoot(config : SlugConfig, flow : SlugFlow) : SlugState {
         if(flow.root) {
