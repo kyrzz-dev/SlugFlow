@@ -1,31 +1,35 @@
-function toSlugsUnsafe(path : string) : string[];
-function toSlugsUnsafe(path : string, s : string) : string[];
-function toSlugsUnsafe(path : string, s : string = '/') : string[] {
-    return path.split(s);
-}
 function toSlugs(path : string) : string[];
 function toSlugs(path : string, s : string) : string[];
-function toSlugs(path : string, s : string = '/') : string[] {
+function toSlugs(slugs : string[]) : string[];
+function toSlugs(slugs : string[], s : string) : string[];
+function toSlugs(src : string | string[], s : string = '/') : string[] {
+    if(Array.isArray(src)){
+        return src;
+    }
+
     if(s.length != 1) {
         throw new Error();
     }
 
-    return toSlugsUnsafe(path, s);
+    return src.split(s);
 }
 
-function toPathUnsafe(slugs : string[]) : string;
-function toPathUnsafe(slugs : string[], s : string) : string;
-function toPathUnsafe(slugs : string[], s: string = '/') : string {
-    return slugs.join(s);
-}
-
+function toPath(path : string) : string;
+function toPath(path : string, s : string) : string;
 function toPath(slugs : string[]) : string;
 function toPath(slugs : string[], s : string) : string;
-function toPath(slugs : string[], s: string = '/') : string {
-    return toPathUnsafe(slugs, s);
+function toPath(src : string | string[], s: string = '/') : string {
+    if(!Array.isArray(src)){
+        return src;
+    }
+    
+    if(s.length != 1) {
+        throw new Error();
+    }
+
+    return src.join(s);
 }
 
 export { 
-    toSlugsUnsafe, toSlugs,
-    toPathUnsafe, toPath 
+    toSlugs, toPath 
 }
