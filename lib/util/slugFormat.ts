@@ -15,7 +15,7 @@ function toSlugs(src : SlugSource, s : string = '/') : string[] {
         throw new Error();
     }
 
-    return src.split(s);
+    return src.split(s).filter(Boolean);
 }
 
 function toPath(path : string) : string;
@@ -33,7 +33,7 @@ function toPath(src : SlugSource, s: string = '/') : string {
         throw new Error();
     }
 
-    return src.join(s);
+    return src.filter(Boolean).join(s);
 }
 
 function toRest(path : string) : string[];
