@@ -1,12 +1,14 @@
+import SlugBase from "./slug/base";
 import SlugConfig from "./slug/config";
 import SlugState from "./slugState";
 
-class SlugFlow {
+class SlugFlow extends SlugBase {
     static cache = new Map<string, SlugFlow>();
     #root : SlugConfig;
     #state : SlugState;
 
     private constructor(root : SlugConfig){
+        super();
         this.#state = SlugState.buildRoot(root, this);        
         this.#root = this.#state.config;
     }
@@ -18,6 +20,10 @@ class SlugFlow {
     public get state() : SlugState {
         return this.#state;
     }
+
+    public getContent(): SlugState[] {
+        return this.state.getContent();
+    }  
 
     static Clear() {
         SlugFlow.cache.clear();

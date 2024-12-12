@@ -1,10 +1,12 @@
 import SlugFlow from "./slugFlow";
+import SlugBase from "./slug/base";
 import SlugConfig from "./slug/config"
 import StateHierarchy from "./state/hierarchy";
 import StateData from "./state/data";
 import freezeClone from "./util/freezeClone";
+import { toSlugs } from "./util/slugFormat";
 
-export class SlugState {  
+export class SlugState extends SlugBase{
     #name : string;
     #config : SlugConfig;
     #flow : SlugFlow;
@@ -14,6 +16,8 @@ export class SlugState {
     #data : StateData;
 
     private constructor(name : string, config : SlugConfig, top : SlugFlow | SlugState){
+        super();
+        
         this.#name = name;
         this.#config = config;
 
@@ -54,6 +58,10 @@ export class SlugState {
     public get data() : StateData {
         return this.#data;
     }
+
+    public getContent(): SlugState[] {
+        return this.hierarchy.getContent();
+    }  
 
     static buildRoot(config : SlugConfig, flow : SlugFlow) : SlugState {
         if(flow.root) {
