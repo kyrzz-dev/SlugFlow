@@ -19,7 +19,7 @@ const config : SlugConfig = {
 
 const flow = SlugFlow.defineFlow("build-root.com", config);
 
-const state = flow.state;
+const state = flow.root;
 
 describe("Root build", () =>{
     it("should not be called manually", () =>{
@@ -42,14 +42,14 @@ describe("Content build", () =>{
         expect(() => SlugState.buildContent(state)).toThrow(); 
     })
 
-    const hierarchy = state.hierarchy;
+    const nav = state.nav;
     it("should be empty if not builded yet", () =>{  
-        const content = hierarchy.content;
+        const content = nav.content;
         expect(content).toEqual([]);
     })
 
     it("should build it with getContent", () =>{
-        const content = hierarchy.getContent();
+        const content = nav.getContent();
         expect(()=> expect(content).toEqual([])).toThrow();
     })
 })
