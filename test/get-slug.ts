@@ -1,6 +1,5 @@
 import SlugFlow from "../lib/slugFlow";
 import dummy from "../examples/config/dummy";
-import { localClone } from "../lib/util/slugData";
 
 const flow = SlugFlow.defineFlow("config-dummy.com", dummy);
 const root = flow.root;

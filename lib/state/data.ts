@@ -1,7 +1,7 @@
 import StateContent from "./content";
 import SlugState from "../slugState";
 import SlugData, { SharedData, LocalData } from "../slug/data";
-import { sharedClone, localClone, dataClone } from "../util/slugData";
+import SlugClone from "../util/slugClone";
 
 class StateData extends StateContent {
     #shared : SharedData;
@@ -12,9 +12,9 @@ class StateData extends StateContent {
         super(target);
         const parent = target.parent;
 
-        this.#shared = sharedClone(target.config, parent?.data.shared);
-        this.#local = localClone(target.config);
-        this.#matched = dataClone(target.config);
+        this.#shared = SlugClone.sharedData(target.config, parent?.data.shared);
+        this.#local = SlugClone.localData(target.config);
+        this.#matched = SlugClone.slugData(target.config);
     }
 
     public get shared() : SharedData{
