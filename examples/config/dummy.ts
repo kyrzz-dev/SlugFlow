@@ -16,7 +16,6 @@ const dummy : SlugConfig = {
             //memoLast: true,
             //memoDefault: false
         },
-
         "101" : {
             layout: "test",
             access : "dev",
@@ -25,7 +24,6 @@ const dummy : SlugConfig = {
             //memoLast: true,
             //memoDefault: false
         },
-
         "102" : {
             //layout: "test",
             //access : "dev",
@@ -34,7 +32,6 @@ const dummy : SlugConfig = {
             memoLast: true,
             memoDefault: false
         },
-
         "103" : {
             layout: "test",
             access : "dev",
@@ -43,7 +40,6 @@ const dummy : SlugConfig = {
             memoLast: true,
             memoDefault: false
         },
-
         "104" : {
             layout: "test",
             //access : "dev",
@@ -51,6 +47,36 @@ const dummy : SlugConfig = {
             
             memoLast: true,
             //memoDefault: false
+        },
+
+        "200" : {
+            sub: {
+                "a" : {
+
+                },
+                "b" : {
+
+                },
+                "c" : {
+
+                }
+            }
+        },
+
+        "201" : {
+            sub: {
+                "a" : {
+                    sub: {
+                        "b" : {
+                            sub: {
+                                "c" : {
+                
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

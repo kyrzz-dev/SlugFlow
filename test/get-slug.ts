@@ -5,53 +5,82 @@ const flow = SlugFlow.defineFlow("config-dummy.com", dummy);
 const root = flow.root;
 
 test("100 - data should be shared from the root, local should be empty", () =>{
-    const slug = root.slug("100");
+    const target = root.slug("100");
 
-    const shared = slug.data.shared, sharedR = root.data.shared;
+    const shared = target.data.shared, sharedR = root.data.shared;
     expect(shared).toEqual(sharedR);
 
-    const local = slug.data.local;
+    const local = target.data.local;
     expect(local).toEqual({});
 })
-
 test("101 - data should be overwritten, local should be empty", () =>{
-    const slug = root.slug("101");
+    const target = root.slug("101");
 
-    const shared = slug.data.shared, sharedR = root.data.shared;
+    const shared = target.data.shared, sharedR = root.data.shared;
     expect(shared).not.toEqual(sharedR);
 
-    const local = slug.data.local;
+    const local = target.data.local;
     expect(local).toEqual({});
 })
-
 test("102 - data should be shared, local should be overwritten", () =>{
-    const slug = root.slug("102");
+    const target = root.slug("102");
 
-    const shared = slug.data.shared, sharedR = root.data.shared;
+    const shared = target.data.shared, sharedR = root.data.shared;
     expect(shared).toEqual(sharedR);
 
-    const local = slug.data.local, localR = root.data.local;
+    const local = target.data.local, localR = root.data.local;
     expect(local).not.toEqual(localR);
 })
-
 test("103 - data and local should be overwritten", () =>{
-    const slug = root.slug("103");
+    const target = root.slug("103");
 
-    const shared = slug.data.shared, sharedR = root.data.shared;
+    const shared = target.data.shared, sharedR = root.data.shared;
     expect(shared).not.toEqual(sharedR);
 
-    const local = slug.data.local, localR = root.data.local;
+    const local = target.data.local, localR = root.data.local;
     expect(local).not.toEqual(localR);
 })
-
 test("104 - data should be combined, local should be overwritten", () =>{
-    const slug = root.slug("104");
+    const target = root.slug("104");
 
-    const shared = slug.data.shared, sharedR = root.data.shared;
+    const shared = target.data.shared, sharedR = root.data.shared;
     expect(shared.layout).not.toEqual(sharedR.layout);
     expect(shared.access).toEqual(sharedR.access);
     expect(shared.meta).not.toEqual(sharedR.meta);
 
-    const local = slug.data.local, localR = root.data.local;
+    const local = target.data.local, localR = root.data.local;
     expect(local).not.toEqual(localR);
+})
+
+describe("200 - grandslugs should be obtained", () =>{
+    const target = root.slug("200");
+
+    test("A. From target", () =>{
+        expect(target.slug("a").name).toEqual("a");
+        expect(target.slug("b").name).toEqual("b");
+        expect(target.slug("c").name).toEqual("c");
+    });
+
+    test("B. From root", () =>{
+        expect(root.slug("200/a").name).toEqual("a");
+        expect(root.slug("200/b").name).toEqual("b");
+        expect(root.slug("200/c").name).toEqual("c");
+    })
+})
+
+describe("201 - deep slugs should be obtained", () =>{
+    const target = root.slug("201");
+
+    test("A. One by one", () =>{
+        let obo = target;
+        expect((obo = obo.slug("a")).name).toEqual("a");
+        expect((obo = obo.slug("b")).name).toEqual("b");
+        expect((obo = obo.slug("c")).name).toEqual("c");
+    });
+
+    test("B. By gradual", () =>{
+        expect(target.slug("a").name).toEqual("a");
+        expect(target.slug("a/b").name).toEqual("b");
+        expect(target.slug("a/b/c").name).toEqual("c");
+    })
 })
