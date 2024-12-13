@@ -5,15 +5,15 @@ import SlugState from "../lib/slugState";
 const flow = SlugFlow.defineFlow("build-content.com", dummy);
 
 const root = flow.root;
-it("should not be called manually", () =>{        
+test("should not be called manually", () =>{        
     expect(() => SlugState.buildContent(flow.root)).toThrow(); 
 })
 
 const nav = root.nav;
-it("should be empty if not builded yet", () =>{  
+test("should be empty if not builded yet", () =>{  
     expect(nav.content).toEqual([]); 
 })
 
-it("should build it with getContent", () =>{
+test("should build it with getContent", () =>{
     expect(nav.getContent()).not.toEqual([]);
 })
