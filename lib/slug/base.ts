@@ -16,27 +16,40 @@ abstract class SlugBase {
     }
 
     private getSlug(slugs : string[]) : SlugState | null{
+        if (slugs.length === 0) {
+            return null;
+        }
     
-        if(slugs[0] == ':') {
+        if (slugs[0] === ':') {
             throw new Error("Invalid slug: Root path cannot begin with ':'");
         }
     
-        const target = this.target();
-        const hierarchy = target.nav;
-        const content = hierarchy.getContent();
-        const isLast = slugs.length == 1;
+        let target = this.target();
+        let depth = 0;
     
-        for(const child of content){
-            if(child.name == slugs[0]){
-                
-                if(isLast) {
-                    return child;
+        while (depth < slugs.length) {
+            const nav = target.nav;
+            const content = nav.getContent();
+            let found = false;
+    
+            for (const child of content) {
+                if (slugs[depth] === child.name) {
+                    if (depth === slugs.length - 1) {
+                        return child;
+                    }
+    
+                    target = child;
+                    found = true;
+                    depth++;
+                    break;
                 }
-
-                return child.getSlug(SlugFormat.toRest(slugs));
+            }
+    
+            if (!found) {
+                return null;
             }
         }
-
+    
         return null;
     }
 }
