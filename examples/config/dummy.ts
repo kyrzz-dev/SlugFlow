@@ -8,22 +8,49 @@ const dummy : SlugConfig = {
     memoDefault: true,
 
     sub: {
-        // empty
-        "test1" : {
-
+        "100" : {
+            //layout: "test",
+            //access : "dev",
+            //meta: { title: "Dummy Test", description: "All situations testing" },
+            
+            //memoLast: true,
+            //memoDefault: false
         },
 
-        // mutation in shared data
-        "test2" : {
+        "101" : {
             layout: "test",
-            access: "dev",
-            meta: { description: "Mutation in shared data" },
+            access : "dev",
+            meta: { title: "Dummy Test", description: "All situations testing" },
+            
+            //memoLast: true,
+            //memoDefault: false
         },
 
-        // mutation in local data
-        "test3" : {
+        "102" : {
+            //layout: "test",
+            //access : "dev",
+            //meta: { title: "Dummy Test", description: "All situations testing" },
+            
             memoLast: true,
             memoDefault: false
+        },
+
+        "103" : {
+            layout: "test",
+            access : "dev",
+            meta: { title: "Dummy Test", description: "All situations testing" },
+            
+            memoLast: true,
+            memoDefault: false
+        },
+
+        "104" : {
+            layout: "test",
+            //access : "dev",
+            meta: { title: "Dummy Test", description: "All situations testing" },
+            
+            memoLast: true,
+            //memoDefault: false
         }
     }
 }
