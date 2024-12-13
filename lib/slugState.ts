@@ -4,7 +4,6 @@ import SlugConfig from "./slug/config"
 import StateNav from "./state/nav";
 import StateData from "./state/data";
 import freezeClone from "./util/freezeClone";
-import { toSlugs } from "./util/slugFormat";
 
 export class SlugState extends SlugBase{
     #name : string;

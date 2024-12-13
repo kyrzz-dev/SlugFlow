@@ -1,12 +1,12 @@
 import SlugSource from "./source";
 import SlugState from "../slugState";
-import { toRest, toSlugs } from "../util/slugFormat";
+import SlugFormat from "../util/slugFormat";
 
 abstract class SlugBase {
     protected abstract target() : SlugState;
 
     public slug(src : SlugSource) : SlugState | null {
-        const slugs = toSlugs(src);
+        const slugs = SlugFormat.toSlugs(src);
     
         if(slugs[0] == ':') {
             throw new Error("Invalid slug: Root path cannot begin with ':'");
@@ -24,7 +24,7 @@ abstract class SlugBase {
                     return child;
                 }
 
-                return child.slug(toRest(slugs));
+                return child.slug(SlugFormat.toRest(slugs));
             }
         }
 
