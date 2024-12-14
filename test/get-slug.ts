@@ -55,32 +55,42 @@ test("104 - data should be combined, local should be overwritten", () =>{
 describe("200 - grandslugs should be obtained", () =>{
     const target = root.slug("200");
 
-    test("A. From target", () =>{
+    test("A - From target", () =>{
         expect(target.slug("a").name).toEqual("a");
         expect(target.slug("b").name).toEqual("b");
         expect(target.slug("c").name).toEqual("c");
     });
 
-    test("B. From root", () =>{
+    test("B - From root", () =>{
         expect(root.slug("200/a").name).toEqual("a");
         expect(root.slug("200/b").name).toEqual("b");
         expect(root.slug("200/c").name).toEqual("c");
     })
 })
 
-describe("201 - deep slugs should be obtained", () =>{
+describe("201 - Access to deep slugs", () =>{
     const target = root.slug("201");
 
-    test("A. One by one", () =>{
+    test("A - stair structure", () =>{
         let obo = target;
         expect((obo = obo.slug("a")).name).toEqual("a");
         expect((obo = obo.slug("b")).name).toEqual("b");
         expect((obo = obo.slug("c")).name).toEqual("c");
     });
 
-    test("B. By gradual", () =>{
+    test("B - hierarchical", () =>{
         expect(target.slug("a").name).toEqual("a");
         expect(target.slug("a/b").name).toEqual("b");
         expect(target.slug("a/b/c").name).toEqual("c");
+    })
+
+    test("C - targeting", () =>{
+        const a = target.slug("a");
+        const ab = target.slug("a/b");
+
+        expect(root.slug("201/a/b/c").name).toEqual("c");
+        expect(target.slug("a/b/c").name).toEqual("c");
+        expect(a.slug("b/c").name).toEqual("c");
+        expect(ab.slug("c").name).toEqual("c");
     })
 })
