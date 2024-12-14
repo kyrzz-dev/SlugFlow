@@ -4,6 +4,7 @@ import SlugConfig from "./slug/config"
 import StateNav from "./state/nav";
 import StateData from "./state/data";
 import freezeClone from "./util/freezeClone";
+import StateIs from "./state/is";
 
 export class SlugState extends SlugBase{
     #name : string;
@@ -11,6 +12,7 @@ export class SlugState extends SlugBase{
     #flow : SlugFlow;
     #parent? : SlugState;
 
+    #is: StateIs;
     #nav : StateNav;
     #data : StateData;
 
@@ -29,6 +31,7 @@ export class SlugState extends SlugBase{
             this.#parent = undefined;
         }
 
+        this.#is = new StateIs(this);
         this.#nav = new StateNav(this);
         this.#data = new StateData(this);
     }

@@ -30,11 +30,13 @@ abstract class SlugBase {
         while (depth < slugs.length) {
             const nav = target.nav;
             const content = nav.getContent();
+
             let found = false;
+            let last = depth === slugs.length - 1;
     
             for (const child of content) {
                 if (slugs[depth] === child.name) {
-                    if (depth === slugs.length - 1) {
+                    if (last) {
                         return child;
                     }
     
