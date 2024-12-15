@@ -51,7 +51,6 @@ class StateNav extends StateContent {
         if(!this.#content) {
             this.#content = [];
 
-            SlugState.buildContent(super.target);
             Object.freeze(this.#content);
         }
         

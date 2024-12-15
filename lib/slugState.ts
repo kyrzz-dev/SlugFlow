@@ -65,29 +65,12 @@ export class SlugState extends SlugBase{
         return this;
     }
 
-    static buildRoot(config : SlugConfig, flow : SlugFlow) : SlugState {
+    static configureRoot(config : SlugConfig, flow : SlugFlow) : void {
         if(flow.root) {
-            throw new Error("Root build cannot be called manually");
-        }
-
-        return new SlugState(":", freezeClone(config), flow);
+            throw new Error("Root is already configured");
     }
     
-    static buildContent(state : SlugState) : void {
-        const nav = state.nav;
-        const content : SlugState[] = nav.content;
-
-        if(Object.isFrozen(content)) {
-            throw new Error("Content build cannot be called manually");
-        }
-
-        const config = state.config;
-
-        if(config.sub){
-            for (const [name, child] of Object.entries(config.sub).reverse()) {
-                content.push(new SlugState(name, child, state));
-            }
-        }
+    flow.root = new SlugState(":", config, top: flow);
     }
 }
 
