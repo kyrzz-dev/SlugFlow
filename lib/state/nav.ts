@@ -4,6 +4,7 @@ import StateContent from "./content";
 class StateNav extends StateContent {
     #depth : number;
     #source : SlugState[];
+    #pool : SlugState[];
     #content? : SlugState[];
 
     public constructor(target : SlugState){
@@ -20,6 +21,8 @@ class StateNav extends StateContent {
             this.#depth = -1;
             this.#source = [];
         }
+
+        this.#pool = [];
 
         Object.freeze(this.#depth);
         Object.freeze(this.#source);
