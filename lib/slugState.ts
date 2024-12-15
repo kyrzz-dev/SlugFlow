@@ -68,9 +68,9 @@ export class SlugState extends SlugBase{
     static configureRoot(config : SlugConfig, flow : SlugFlow) : void {
         if(flow.root) {
             throw new Error("Root is already configured");
-    }
-    
-    flow.root = new SlugState(":", config, top: flow);
+        }
+
+        flow.root = new SlugState(":", config, flow);
     }
 }
 

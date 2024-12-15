@@ -1,7 +1,7 @@
-import SlugFlow from "../lib/slugFlow";
+import { defineFlow } from "../lib/slugFlow";
 import dummy from "../examples/config/dummy";
 
-const flow = SlugFlow.defineFlow("config-dummy.com", dummy);
+const flow = defineFlow("config-dummy.com", dummy);
 const root = flow.root;
 
 test("100 - data should be shared from the root, local should be empty", () =>{
