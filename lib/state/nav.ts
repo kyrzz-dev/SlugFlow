@@ -47,16 +47,20 @@ class StateNav extends StateContent {
         for(const prefab of SlugState.configurePrefabs(super.target)) {
             this.#pool.push(prefab);
         }
-        
+
         this.#prefabs = true;
     }
 
-    public slug(name : string) : SlugState | undefined {
-        return this.#pool.find(slug => slug.name == name);
+    /**
+     * Get slug with specified name from pool
+     */
+    public content(name : string) : SlugState | null {
+        const slug = this.pool.find(slug => slug.name == name);
+        return slug ? slug : null;
     }
 
     public pattern(name : string) {
-        if(this.slug(name)) {
+        if(this.content(name)) {
             throw new Error("Slug with specified name already exists");
         }
 
