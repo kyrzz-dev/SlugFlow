@@ -45,7 +45,7 @@ abstract class SlugBase {
             }
 
             if(last) {
-                return nav.pattern(name);
+                return nav.content(name);
             }
 
             break;

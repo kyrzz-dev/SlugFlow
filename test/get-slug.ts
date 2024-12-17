@@ -98,13 +98,13 @@ test("300 - pattern not defined", () =>{
     const target = root.slug("300");
     const nav = target.nav;
 
-    expect(() => nav.pattern("a")).toThrow();
+    expect(() => nav.content("a")).toThrow();
 })
 test("301 - pattern defined", () =>{
     const target = root.slug("301");
     const nav = target.nav;
 
-    expect(nav.pattern("a").name).toBe("a");
-    expect(nav.pattern("b").name).toBe("b");
-    expect(nav.pattern("c").name).toBe("c");
+    expect(nav.content("a").name).toBe("a");
+    expect(nav.content("b").name).toBe("b");
+    expect(nav.content("c").name).toBe("c");
 })
