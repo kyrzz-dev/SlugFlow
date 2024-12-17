@@ -52,22 +52,25 @@ class StateNav extends StateContent {
     }
 
     /**
-     * Get slug with specified name from pool
+     * Get the child by specified name
      */
-    public content(name : string) : SlugState | null {
+    public child(name : string) : SlugState | null {
         const slug = this.pool.find(slug => slug.name == name);
         return slug ? slug : null;
     }
 
-    public pattern(name : string) {
-        if(this.content(name)) {
-            throw new Error("Slug with specified name already exists");
+    /**
+     * Get or provide child by specified name
+     */
+    public content(name : string) : SlugState {
+        let slug = this.child(name);
+
+        if(!slug) {
+            slug = SlugState.configurePattern(name, super.target);
+            this.#pool.push(slug);
         }
 
-        const state = SlugState.configurePattern(name, super.target);
-        this.#pool.push(state);
-
-        return state;
+        return slug;
     }
 }
 
