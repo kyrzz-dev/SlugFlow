@@ -96,12 +96,15 @@ describe("203 - Access to deep slugs", () =>{
 
 test("300 - pattern not defined", () =>{
     const target = root.slug("300");
-    expect(() => target.nav.pattern("a")).toThrow();
+    const nav = target.nav;
+
+    expect(() => nav.pattern("a")).toThrow();
 })
 test("301 - pattern defined", () =>{
     const target = root.slug("301");
+    const nav = target.nav;
 
-    expect(target.nav.pattern("a").name).toBe("a");
-    expect(target.nav.pattern("b").name).toBe("b");
-    expect(target.nav.pattern("c").name).toBe("c");
+    expect(nav.pattern("a").name).toBe("a");
+    expect(nav.pattern("b").name).toBe("b");
+    expect(nav.pattern("c").name).toBe("c");
 })
