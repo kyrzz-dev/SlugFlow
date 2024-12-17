@@ -69,24 +69,10 @@ export class SlugState extends SlugBase{
         return flow.root = new SlugState(":", freezeClone(config), flow);
     }
 
-    static configurePrefab(name : string, state : SlugState) : SlugState {
-        const sub = state.config.sub;
-        if(!sub) {
-            throw new Error("No sub defined for static slugs");
-        }
-
-        const prefab = Object.entries(sub).find(i => i[0] == name);
-        if(!prefab) {
-            throw new Error("No prefab defined for static slugs");
-        }
-
-        return new SlugState(name, prefab[1], state);
-    }
-
     static configurePrefabs(state : SlugState) : SlugState[] {
         const sub = state.config.sub;
         if(!sub) {
-            throw new Error("No sub defined for static slugs");
+            return [];
         }
 
         const prefabs : SlugState[] = [];
