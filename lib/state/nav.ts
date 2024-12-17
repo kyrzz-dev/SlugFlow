@@ -5,7 +5,7 @@ class StateNav extends StateContent {
     #depth : number;
     #source : SlugState[];
     #pool : SlugState[];
-    #content? : SlugState[];
+    #prefabs : boolean;
 
     public constructor(target : SlugState){
         super(target);
@@ -23,38 +23,47 @@ class StateNav extends StateContent {
         }
 
         this.#pool = [];
-
-        Object.freeze(this.#depth);
-        Object.freeze(this.#source);
+        this.#prefabs = false;
     }
 
     public get depth() : number{
         return this.#depth;
     }
 
-    public get source() : SlugState[]{
+    public get source() : ReadonlyArray<SlugState> {
         return this.#source;
     }
 
-    public get content() : SlugState[] {
-        if(this.#content){
-            return this.#content;
-        }
-
-        const empty : SlugState[] = [];
-        Object.freeze(empty);
-
-        return empty;
+    public get pool() : ReadonlyArray<SlugState> {
+        this.initPrefabs();
+        return this.#pool;
     }
 
-    public getContent(){
-        if(!this.#content) {
-            this.#content = [];
+    initPrefabs() {
+        if(this.#prefabs) {
+            return;
+        }
 
-            Object.freeze(this.#content);
+        for(const prefab of SlugState.configurePrefabs(super.target)) {
+            this.#pool.push(prefab);
         }
         
-        return this.content;
+        this.#prefabs = true;
+    }
+
+    public slug(name : string) : SlugState | undefined {
+        return this.#pool.find(slug => slug.name == name);
+    }
+
+    public pattern(name : string) {
+        if(this.slug(name)) {
+            throw new Error("Slug with specified name already exists");
+        }
+
+        const state = SlugState.configurePattern(name, super.target);
+        this.#pool.push(state);
+
+        return state;
     }
 }
 

@@ -65,8 +65,46 @@ export class SlugState extends SlugBase{
         return this;
     }
 
-    static configureRoot(config : SlugConfig, flow : SlugFlow) : void {
-        flow.root = new SlugState(":", freezeClone(config), flow);
+    static configureRoot(config : SlugConfig, flow : SlugFlow) : SlugState {
+        return flow.root = new SlugState(":", freezeClone(config), flow);
+    }
+
+    static configurePrefab(name : string, state : SlugState) : SlugState {
+        const sub = state.config.sub;
+        if(!sub) {
+            throw new Error("No sub defined for static slugs");
+        }
+
+        const prefab = Object.entries(sub).find(i => i[0] == name);
+        if(!prefab) {
+            throw new Error("No prefab defined for static slugs");
+        }
+
+        return new SlugState(name, prefab[1], state);
+    }
+
+    static configurePrefabs(state : SlugState) : SlugState[] {
+        const sub = state.config.sub;
+        if(!sub) {
+            throw new Error("No sub defined for static slugs");
+        }
+
+        const prefabs : SlugState[] = [];
+        for (const [name, config] of Object.entries(sub)) {
+            prefabs.push(new SlugState(name, config, state));
+        }
+
+        return prefabs;
+    }
+
+    static configurePattern(name : string, parent : SlugState) : SlugState {
+        const pattern = parent.config.pattern;
+
+        if(!pattern) {
+            throw new Error("No pattern defined for dynamic slugs");
+        }
+
+        return new SlugState(name, freezeClone(pattern), parent);
     }
 }
 

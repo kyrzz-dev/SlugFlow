@@ -29,7 +29,7 @@ abstract class SlugBase {
     
         while (depth < slugs.length) {
             const nav = target.nav;
-            const content = nav.getContent();
+            const content = nav.pool;
 
             let found = false;
             let last = depth === slugs.length - 1;
