@@ -44,9 +44,12 @@ class StateNav extends StateContent {
             return;
         }
 
-        for(const prefab of SlugState.configurePrefabs(super.target)) {
-            this.#pool.push(prefab);
+        try {
+            for(const prefab of SlugState.configurePrefabs(super.target)) {
+                this.#pool.push(prefab);
+            }
         }
+        catch(e) {}
 
         this.#prefabs = true;
     }

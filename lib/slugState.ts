@@ -72,7 +72,7 @@ export class SlugState extends SlugBase{
     static configurePrefabs(state : SlugState) : SlugState[] {
         const sub = state.config.sub;
         if(!sub) {
-            return [];
+            throw new Error("No sub defined for static slugs");
         }
 
         const prefabs : SlugState[] = [];
