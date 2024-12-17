@@ -50,6 +50,16 @@ const dummy : SlugConfig = {
         },
 
         "200" : {
+
+        },
+
+        "201" : {
+            sub: {
+
+            }
+        },
+
+        "202" : {
             sub: {
                 "a" : {
 
@@ -63,7 +73,7 @@ const dummy : SlugConfig = {
             }
         },
 
-        "201" : {
+        "203" : {
             sub: {
                 "a" : {
                     sub: {
@@ -85,7 +95,7 @@ const dummy : SlugConfig = {
 
         "301" : {
             pattern: {
-                
+
             }
         }
     }

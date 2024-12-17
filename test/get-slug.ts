@@ -52,8 +52,8 @@ test("104 - data should be combined, local should be overwritten", () =>{
     expect(local).not.toEqual(localR);
 })
 
-describe("200 - grandslugs should be obtained", () =>{
-    const target = root.slug("200");
+describe("202 - grandslugs should be obtained", () =>{
+    const target = root.slug("202");
 
     test("A - From target", () =>{
         expect(target.slug("a").name).toBe("a");
@@ -62,13 +62,13 @@ describe("200 - grandslugs should be obtained", () =>{
     });
 
     test("B - From root", () =>{
-        expect(root.slug("200/a").name).toBe("a");
-        expect(root.slug("200/b").name).toBe("b");
-        expect(root.slug("200/c").name).toBe("c");
+        expect(root.slug("202/a").name).toBe("a");
+        expect(root.slug("202/b").name).toBe("b");
+        expect(root.slug("202/c").name).toBe("c");
     })
 })
-describe("201 - Access to deep slugs", () =>{
-    const target = root.slug("201");
+describe("203 - Access to deep slugs", () =>{
+    const target = root.slug("203");
 
     test("A - stair structure", () =>{
         let obo = target;
@@ -87,7 +87,7 @@ describe("201 - Access to deep slugs", () =>{
         const a = target.slug("a");
         const ab = target.slug("a/b");
 
-        expect(root.slug("201/a/b/c").name).toBe("c");
+        expect(root.slug("203/a/b/c").name).toBe("c");
         expect(target.slug("a/b/c").name).toBe("c");
         expect(a.slug("b/c").name).toBe("c");
         expect(ab.slug("c").name).toBe("c");
