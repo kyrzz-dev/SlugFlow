@@ -56,15 +56,15 @@ describe("200 - grandslugs should be obtained", () =>{
     const target = root.slug("200");
 
     test("A - From target", () =>{
-        expect(target.slug("a").name).toEqual("a");
-        expect(target.slug("b").name).toEqual("b");
-        expect(target.slug("c").name).toEqual("c");
+        expect(target.slug("a").name).toBe("a");
+        expect(target.slug("b").name).toBe("b");
+        expect(target.slug("c").name).toBe("c");
     });
 
     test("B - From root", () =>{
-        expect(root.slug("200/a").name).toEqual("a");
-        expect(root.slug("200/b").name).toEqual("b");
-        expect(root.slug("200/c").name).toEqual("c");
+        expect(root.slug("200/a").name).toBe("a");
+        expect(root.slug("200/b").name).toBe("b");
+        expect(root.slug("200/c").name).toBe("c");
     })
 })
 describe("201 - Access to deep slugs", () =>{
@@ -72,25 +72,25 @@ describe("201 - Access to deep slugs", () =>{
 
     test("A - stair structure", () =>{
         let obo = target;
-        expect((obo = obo.slug("a")).name).toEqual("a");
-        expect((obo = obo.slug("b")).name).toEqual("b");
-        expect((obo = obo.slug("c")).name).toEqual("c");
+        expect((obo = obo.slug("a")).name).toBe("a");
+        expect((obo = obo.slug("b")).name).toBe("b");
+        expect((obo = obo.slug("c")).name).toBe("c");
     });
 
     test("B - hierarchical", () =>{
-        expect(target.slug("a").name).toEqual("a");
-        expect(target.slug("a/b").name).toEqual("b");
-        expect(target.slug("a/b/c").name).toEqual("c");
+        expect(target.slug("a").name).toBe("a");
+        expect(target.slug("a/b").name).toBe("b");
+        expect(target.slug("a/b/c").name).toBe("c");
     })
 
     test("C - targeting", () =>{
         const a = target.slug("a");
         const ab = target.slug("a/b");
 
-        expect(root.slug("201/a/b/c").name).toEqual("c");
-        expect(target.slug("a/b/c").name).toEqual("c");
-        expect(a.slug("b/c").name).toEqual("c");
-        expect(ab.slug("c").name).toEqual("c");
+        expect(root.slug("201/a/b/c").name).toBe("c");
+        expect(target.slug("a/b/c").name).toBe("c");
+        expect(a.slug("b/c").name).toBe("c");
+        expect(ab.slug("c").name).toBe("c");
     })
 })
 
