@@ -6,53 +6,52 @@ abstract class SlugBase {
     protected abstract target() : SlugState;
 
     public slug(src : SlugSource) : SlugState {
-        const slug = this.getSlug(SlugFormat.toSlugs(src));
+        const slugs : string[] = SlugFormat.toSlugs(src)
 
-        if(!slug) {
-            throw new Error("Slug not found on specified target");
-        }
-
-        return slug;
-    }
-
-    private getSlug(slugs : string[]) : SlugState | null{
         if (slugs.length === 0) {
-            return null;
+            throw new Error();
         }
     
         if (slugs[0] === ':') {
             throw new Error("Invalid slug: Root path cannot begin with ':'");
         }
-    
+     
         let target = this.target();
-        let depth = 0;
+        let index = 0;
     
-        while (depth < slugs.length) {
+        while (index < slugs.length) {
+            const name = slugs[index];
             const nav = target.nav;
-            const content = nav.pool;
+            const pool = nav.pool;
 
             let found = false;
-            let last = depth === slugs.length - 1;
+            let last = index === (slugs.length - 1);
     
-            for (const child of content) {
-                if (slugs[depth] === child.name) {
+            for (const child of pool) {
+                if (name === child.name) {
                     if (last) {
                         return child;
                     }
     
                     target = child;
                     found = true;
-                    depth++;
+                    index++;
                     break;
                 }
             }
     
-            if (!found) {
-                return null;
+            if(found) {
+                continue;
             }
+
+            if(last) {
+                return nav.pattern(name);
+            }
+
+            break;
         }
-    
-        return null;
+
+        throw new Error("There should be no gaps in hierarchy");
     }
 }
 
