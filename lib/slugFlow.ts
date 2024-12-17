@@ -47,7 +47,7 @@ class SlugFlow extends SlugBase {
 
     public set root(value : SlugState) {
         if(this.#root) {
-            throw new Error("Root already created");
+            throw new Error("Root is already configured");
         }
 
         this.#root = value;

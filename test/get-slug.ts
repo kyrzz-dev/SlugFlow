@@ -3,7 +3,7 @@ import dummy from "../examples/config/dummy";
 
 const flow = defineFlow("config-dummy.com", dummy);
 const root = flow.root;
-
+ 
 test("100 - data should be shared from the root, local should be empty", () =>{
     const target = root.slug("100");
 
