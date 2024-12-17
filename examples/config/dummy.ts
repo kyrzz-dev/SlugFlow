@@ -77,6 +77,16 @@ const dummy : SlugConfig = {
                     }
                 }
             }
+        },
+
+        "300" : {
+
+        },
+
+        "301" : {
+            pattern: {
+                
+            }
         }
     }
 }

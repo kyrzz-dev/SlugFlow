@@ -67,7 +67,6 @@ describe("200 - grandslugs should be obtained", () =>{
         expect(root.slug("200/c").name).toEqual("c");
     })
 })
-
 describe("201 - Access to deep slugs", () =>{
     const target = root.slug("201");
 
@@ -93,4 +92,16 @@ describe("201 - Access to deep slugs", () =>{
         expect(a.slug("b/c").name).toEqual("c");
         expect(ab.slug("c").name).toEqual("c");
     })
+})
+
+test("300 - pattern not defined", () =>{
+    const target = root.slug("300");
+    expect(() => target.nav.pattern("a")).toThrow();
+})
+test("301 - pattern defined", () =>{
+    const target = root.slug("301");
+
+    expect(target.nav.pattern("a").name).toBe("a");
+    expect(target.nav.pattern("b").name).toBe("b");
+    expect(target.nav.pattern("c").name).toBe("c");
 })
